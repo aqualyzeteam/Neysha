@@ -1,219 +1,125 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WaterWise - Hemat Air</title>
+    <title>Aqualyze - Save Water, Save Life</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Quicksand', sans-serif; }
-        .page { display: none; }
-        .page.active { display: block; }
-        .gauge-container {
-            position: relative;
-            width: 200px;
-            height: 100px;
-            background: #e2e8f0;
-            border-radius: 100px 100px 0 0;
-            overflow: hidden;
-            margin: 0 auto;
+        body { font-family: 'Quicksand', sans-serif; scroll-behavior: smooth; }
+
+        /* Background Hero - Pastikan file bg-hero.jpg ada di folder yang sama */
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), 
+                        url('bg-hero.png'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        #gauge-fill {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #3b82f6;
-            transform-origin: bottom center;
-            transform: rotate(0deg);
-            transition: transform 0.5s ease;
-        }
+
+        /* Transisi halus */
+        .transition-all { transition: all 0.3s ease; }
     </style>
 </head>
-<body class="bg-blue-50 min-h-screen pb-10">
+<body class="bg-white">
 
-    <nav class="bg-white shadow-sm p-4 sticky top-0 z-50">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            <h1 class="text-blue-600 font-bold text-xl">WaterWise</h1>
-            <button class="text-gray-500 text-sm border px-2 py-1 rounded">Login</button>
+    <nav class="flex justify-between items-center px-6 md:px-20 py-6 bg-transparent absolute w-full z-30">
+        <div class="text-2xl font-bold text-white tracking-widest flex items-center gap-2">
+            <span class="text-blue-400 text-3xl">💧</span> AQUALYZE
+        </div>
+
+        <button id="menu-btn" class="md:hidden text-white focus:outline-none z-40">
+            <svg id="menu-icon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+
+        <div id="menu" class="hidden absolute top-0 left-0 w-full h-screen bg-blue-900/95 flex flex-col items-center justify-center space-y-8 text-white text-xl font-semibold md:static md:h-auto md:bg-transparent md:flex md:flex-row md:space-x-10 md:space-y-0 md:w-auto z-30">
+            <a href="index.html" class="hover:text-blue-400 transition-all">Home</a>
+            <a href="about.html" class="hover:text-blue-400 transition-all">About</a>
+            <a href="tips.html" class="hover:text-blue-400 transition-all">Features</a>
+            <a href="contact.html" class="hover:text-blue-400 transition-all">Contact</a>
+            <a href="#" class="border border-white/50 text-white px-8 py-2 rounded-full hover:bg-white hover:text-blue-900 transition-all">Login</a>
         </div>
     </nav>
 
-    <div class="max-w-md mx-auto p-4">
-
-        <div id="home" class="page active">
-            <div class="text-center py-10">
-                <h2 class="text-3xl font-bold text-gray-800">Save Water,<br>Save Life</h2>
-                <p class="text-gray-500 mt-2 italic">Start your journey!</p>
-                <button onclick="showPage('calc')" class="mt-6 bg-blue-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-blue-700">Start Calculating</button>
-            </div>
-
-            <div class="grid grid-cols-2 gap-4 mt-8">
-                <div onclick="showPage('calc')" class="bg-white p-6 rounded-2xl shadow-sm text-center border-2 border-blue-100 cursor-pointer">
-                    <span class="text-3xl">🧮</span>
-                    <p class="font-bold mt-2">Calculator</p>
-                </div>
-                <div onclick="showPage('tips')" class="bg-white p-6 rounded-2xl shadow-sm text-center border-2 border-blue-100 cursor-pointer">
-                    <span class="text-3xl">💡</span>
-                    <p class="font-bold mt-2">Tips</p>
-                </div>
-                <div onclick="showPage('challenge')" class="bg-white p-6 rounded-2xl shadow-sm text-center border-2 border-blue-100 col-span-2 cursor-pointer">
-                    <span class="text-3xl">🚩</span>
-                    <p class="font-bold mt-2">Challenge</p>
-                </div>
-            </div>
-            
-            <div class="mt-8 text-center text-blue-500 font-bold underline cursor-pointer">
-                TRY NOW!
+    <header class="hero-bg h-screen flex flex-col justify-center px-6 md:px-24">
+        <div class="max-w-3xl text-white">
+            <h1 class="text-5xl md:text-8xl font-bold leading-tight uppercase tracking-tight">
+                Save Water,<br><span class="text-blue-400">Save Life</span>
+            </h1>
+            <p class="text-lg md:text-2xl mt-8 text-gray-300 max-w-xl">
+                Lacak penggunaan air harianmu dan mulailah membangun kebiasaan yang lebih cerdas untuk masa depan bumi.
+            </p>
+            <div class="mt-10 flex flex-wrap gap-4">
+                <a href="calculator.html" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-10 rounded-2xl shadow-2xl transition-all transform hover:-translate-y-1 text-center w-full md:w-auto">
+                    Check Your Usage
+                </a>
             </div>
         </div>
+    </header>
 
-        <div id="calc" class="page">
-            <button onclick="showPage('home')" class="text-blue-600 mb-4 flex items-center">← Kembali</button>
-            <div class="bg-white p-6 rounded-3xl shadow-lg border border-gray-100">
-                <h2 class="text-xl font-bold mb-6 text-center">Water Usage Calcul</h2>
-                
-                <div class="space-y-6">
-                    <div class="flex items-center justify-between">
-                        <span>Mandi (Menit)</span>
-                        <div class="flex items-center gap-3">
-                            <button onclick="changeVal('mandi', -1)" class="w-8 h-8 bg-gray-100 rounded">-</button>
-                            <input type="number" id="mandi" value="10" class="w-12 text-center font-bold">
-                            <button onclick="changeVal('mandi', 1)" class="w-8 h-8 bg-gray-100 rounded">+</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>Cuci Tangan (Kali)</span>
-                        <div class="flex items-center gap-3">
-                            <button onclick="changeVal('tangan', -1)" class="w-8 h-8 bg-gray-100 rounded">-</button>
-                            <input type="number" id="tangan" value="5" class="w-12 text-center font-bold">
-                            <button onclick="changeVal('tangan', 1)" class="w-8 h-8 bg-gray-100 rounded">+</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <span>Cuci Baju?</span>
-                        <div class="flex gap-2">
-                            <label><input type="radio" name="baju" value="70"> Ya</label>
-                            <label><input type="radio" name="baju" value="0" checked> Tidak</label>
-                        </div>
-                    </div>
+    <section class="bg-slate-900 py-20 px-6 md:px-24">
+        <div class="max-w-5xl mx-auto text-center">
+            <p class="text-blue-100 text-xl md:text-3xl font-medium leading-relaxed italic">
+                "Website Aqualyze adalah platform digital yang mendorong penggunaan air secara bijak melalui fitur interaktif untuk membantu kamu mengelola konsumsi air secara lebih efisien."
+            </p>
+            <div class="h-1 w-24 bg-blue-500 mx-auto mt-10 rounded-full"></div>
+        </div>
+    </section>
 
-                    <button onclick="hitungTotal()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold">Calculate</button>
+    <section class="bg-blue-50 py-24 px-6 md:px-24">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 text-center md:text-left">
+                <div class="w-full md:w-auto">
+                    <h2 class="text-4xl font-bold text-slate-800">Mulai Perjalananmu</h2>
+                    <p class="text-slate-500 mt-2 text-lg">Pilih fitur yang ingin kamu jelajahi hari ini.</p>
                 </div>
+            </div>
 
-                <div id="result" class="hidden mt-8 pt-8 border-t border-dashed">
-                    <p class="text-center font-bold">Total Peng. Air: <span id="totalText" class="text-blue-600 text-2xl">0</span> Liter</p>
-                    
-                    <div class="gauge-container mt-4">
-                        <div id="gauge-fill"></div>
-                        <div class="absolute bottom-0 w-full text-center text-xs font-bold pb-1 bg-white">Hemat | Boros</div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <a href="calculator.html" class="bg-white p-10 rounded-[2rem] shadow-xl border border-transparent hover:border-blue-400 transition-all group">
+                    <div class="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-all">🧮</div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Calculator</h3>
+                    <p class="text-slate-500">Hitung pemakaian air harianmu berdasarkan aktivitas.</p>
+                </a>
 
-                    <p id="statusLabel" class="text-center mt-4 font-bold text-sm italic px-4"></p>
-                </div>
+                <a href="tips.html" class="bg-white p-10 rounded-[2rem] shadow-xl border border-transparent hover:border-blue-400 transition-all group">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-all">💡</div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Tips</h3>
+                    <p class="text-slate-500">Pelajari cara-cara praktis menghemat air di rumah.</p>
+                </a>
+
+                <a href="challenge.html" class="bg-white p-10 rounded-[2rem] shadow-xl border border-transparent hover:border-blue-400 transition-all group">
+                    <div class="bg-red-100 w-16 h-16 rounded-2xl flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-all">🚩</div>
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Challenge</h3>
+                    <p class="text-slate-500">Ikuti tantangan harian dan kumpulkan poin hematmu!</p>
+                </a>
             </div>
         </div>
+    </section>
 
-        <div id="tips" class="page">
-            <button onclick="showPage('home')" class="text-blue-600 mb-4 flex items-center">← Kembali</button>
-            <h2 class="text-xl font-bold mb-4">Daily Water Tips</h2>
-            <div class="space-y-3">
-                <div class="bg-white p-4 rounded-xl flex justify-between items-center shadow-sm">
-                    <span class="text-sm">Mandi Max 5 Menit</span>
-                    <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded text-xs font-bold">Read More</button>
-                </div>
-                <div class="bg-white p-4 rounded-xl flex justify-between items-center shadow-sm">
-                    <span class="text-sm">Matikan Keran Saat Sikat Gigi</span>
-                    <button class="bg-blue-100 text-blue-600 px-3 py-1 rounded text-xs font-bold">Read More</button>
-                </div>
-            </div>
-
-            <div class="mt-8 bg-blue-100 p-6 rounded-3xl">
-                <h3 class="text-2xl font-bold mb-2">Did you know?</h3>
-                <p class="text-gray-700">• Keran terbuka 1 menit bisa buang 6 liter air!</p>
-            </div>
-        </div>
-
-        <div id="challenge" class="page">
-            <button onclick="showPage('home')" class="text-blue-600 mb-4 flex items-center">← Kembali</button>
-            <div class="bg-white p-6 rounded-3xl shadow-lg border-t-4 border-blue-400">
-                <h2 class="text-xl font-bold text-center mb-4">Hemat Air Challenge</h2>
-                <div class="flex justify-between mb-6">
-                    <div class="text-center bg-blue-600 text-white rounded p-2 text-xs">DAY 1</div>
-                    <div class="text-center bg-gray-200 text-gray-500 rounded p-2 text-xs">DAY 2</div>
-                    <div class="text-center bg-gray-200 text-gray-500 rounded p-2 text-xs">DAY 3</div>
-                </div>
-                
-                <div class="bg-gray-100 h-32 rounded-xl flex items-center justify-center mb-4 italic text-blue-400 font-bold">
-                    "Hemat itu bukan tren, tapi lifestyle!"
-                </div>
-
-                <button id="btnSelesai" onclick="finishChallenge()" class="w-full border-2 border-black py-3 font-bold rounded-lg hover:bg-gray-50">Tandai Selesai</button>
-                <p id="pointText" class="text-center mt-4 font-bold text-orange-500 hidden">+ 10 Points 🥕</p>
-            </div>
-        </div>
-
-    </div>
+    <footer class="bg-white py-10 text-center border-t border-slate-100">
+        <p class="text-slate-400 font-medium">&copy; 2026 Aqualyze Project. Designed for a better future.</p>
+    </footer>
 
     <script>
-        // Fungsi ganti halaman
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            window.scrollTo(0,0);
-        }
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('menu');
 
-        // Fungsi tambah/kurang nilai input
-        function changeVal(id, delta) {
-            let input = document.getElementById(id);
-            let val = parseInt(input.value) + delta;
-            if(val < 0) val = 0;
-            input.value = val;
-        }
-
-        // Fungsi Hitung Kalkulator
-        function hitungTotal() {
-            let mandi = parseInt(document.getElementById('mandi').value) * 10;
-            let tangan = parseInt(document.getElementById('tangan').value) * 2;
-            let baju = parseInt(document.querySelector('input[name="baju"]:checked').value);
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menu.classList.toggle('flex');
             
-            // Sesuai rumus user: Mandi (min*10) + Tangan (*2) + Baju (70)
-            let total = mandi + tangan + baju;
-            
-            // Tampilkan Hasil
-            document.getElementById('result').classList.remove('hidden');
-            document.getElementById('totalText').innerText = total.toFixed(1);
-
-            // Logika Gauge (Jarum)
-            let gauge = document.getElementById('gauge-fill');
-            let statusLabel = document.getElementById('statusLabel');
-            
-            // Kita batasi max 300 liter untuk indikator penuh (180 derajat)
-            let rotation = (total / 300) * 180;
-            if(rotation > 180) rotation = 180;
-            gauge.style.transform = `rotate(${rotation}deg)`;
-
-            // Logika Warna dan Pesan
-            if(total < 100) {
-                gauge.style.background = "#22c55e"; // Hijau
-                statusLabel.innerText = "Kamu sudah cukup hemat, pertahankan!";
-                statusLabel.style.color = "#22c55e";
-            } else if(total <= 200) {
-                gauge.style.background = "#eab308"; // Kuning
-                statusLabel.innerText = "Penggunaan normal, tapi bisa lebih baik lagi.";
-                statusLabel.style.color = "#a16207";
-            } else {
-                gauge.style.background = "#ef4444"; // Merah
-                statusLabel.innerText = "Waduh boros! Matikan keran saat tidak dipakai.";
-                statusLabel.style.color = "#ef4444";
-            }
-        }
-
-        // Fungsi Challenge
-        function finishChallenge() {
-            document.getElementById('btnSelesai').innerText = "✓ Berhasil";
-            document.getElementById('btnSelesai').classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-            document.getElementById('pointText').classList.remove('hidden');
-        }
+            // Opsional: Ganti ikon hamburger jadi silang (X) saat diklik
+            const isHidden = menu.classList.contains('hidden');
+            btn.innerHTML = isHidden 
+                ? '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>'
+                : '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        });
     </script>
+
 </body>
 </html>
